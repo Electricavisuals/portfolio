@@ -636,7 +636,7 @@ document.addEventListener('mouseup', e => {
 // Scroll zoom — anchored to cursor position
 wrap.addEventListener('wheel', e => {
   e.preventDefault();
-  const d = e.deltaY > 0 ? 0.92 : 1.08;
+  const d = e.deltaY > 0 ? 0.9 : 1.1;
   const r = wrap.getBoundingClientRect();
   const mx = e.clientX - r.left;
   const my = e.clientY - r.top;
