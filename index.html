@@ -1,403 +1,689 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Albert Callejo · Portfolio Canvas</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-        :root {
-            --primary-accent: #7EC8E3;
-            --nucleus-bg: #111130;
-            --floor-bg: #0F0F1E;
-        }
-        body {
-            background-color: var(--floor-bg);
-            color: #e0e3e5;
-            overflow: hidden;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        .glass-panel {
-            background: rgba(17, 17, 48, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(44, 44, 44, 0.5);
-        }
-        .canvas-dot-grid {
-            background-image: radial-gradient(rgba(126, 200, 227, 0.1) 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-        .connector-line {
-            stroke: var(--primary-accent);
-            stroke-width: 1.5;
-            fill: none;
-            stroke-dasharray: 4;
-            animation: flow 20s linear infinite;
-        }
-        @keyframes flow {
-            from { stroke-dashoffset: 100; }
-            to { stroke-dashoffset: 0; }
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #2c2c2c;
-            border-radius: 10px;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#e0e3e5",
-                        "tertiary-container": "#f7ae71",
-                        "outline-variant": "#3f484c",
-                        "surface-variant": "#323537",
-                        "surface-container-lowest": "#0b0f10",
-                        "on-tertiary": "#4d2700",
-                        "primary-container": "#7ec8e3",
-                        "on-primary-container": "#005468",
-                        "primary": "#9ce4ff",
-                        "on-error": "#690005",
-                        "surface-container-high": "#272a2c",
-                        "secondary-container": "#304a54",
-                        "secondary": "#afcbd7",
-                        "outline": "#899297",
-                        "primary-fixed": "#b7eaff",
-                        "error-container": "#93000a",
-                        "error": "#ffb4ab",
-                        "on-error-container": "#ffdad6",
-                        "on-primary": "#003543",
-                        "tertiary-fixed-dim": "#ffb77c",
-                        "secondary-fixed-dim": "#afcbd7",
-                        "on-tertiary-fixed-variant": "#6c3a05",
-                        "surface-dim": "#101415",
-                        "on-secondary": "#19343d",
-                        "on-surface": "#e0e3e5",
-                        "on-tertiary-fixed": "#2e1500",
-                        "surface-container-low": "#181c1e",
-                        "on-primary-fixed": "#001f28",
-                        "inverse-on-surface": "#2d3133",
-                        "secondary-fixed": "#cbe7f3",
-                        "surface-tint": "#87d1ec",
-                        "on-background": "#e0e3e5",
-                        "surface-container": "#1c2022",
-                        "primary-fixed-dim": "#87d1ec",
-                        "on-secondary-fixed-variant": "#304a54",
-                        "on-secondary-container": "#9eb9c5",
-                        "on-tertiary-container": "#73400b",
-                        "on-surface-variant": "#bfc8cd",
-                        "inverse-primary": "#02677f",
-                        "surface-bright": "#363a3b",
-                        "tertiary-fixed": "#ffdcc2",
-                        "on-secondary-fixed": "#021f28",
-                        "on-primary-fixed-variant": "#004e60",
-                        "tertiary": "#ffd1ad",
-                        "surface-container-highest": "#323537",
-                        "surface": "#101415",
-                        "background": "#101415"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "unit": "16px",
-                        "canvas-grid": "32px",
-                        "left-panel-margin": "24px",
-                        "bottom-panel-margin": "32px"
-                    },
-                    "fontFamily": {
-                        "display-lg": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "code-sm": ["JetBrains Mono"],
-                        "label-xs": ["JetBrains Mono"]
-                    },
-                    "fontSize": {
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "code-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-xs": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
-                    }
-                },
-            },
-        }
-    </script>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1012;
+  --surface:#141618;
+  --surface2:#1C1E20;
+  --surface3:#1A1C1E;
+  --accent:#7EC8E3;
+  --accent2:#5599BB;
+  --border:rgba(126,200,227,0.15);
+  --border2:rgba(255,255,255,0.07);
+  --text:#E0E3E5;
+  --text2:#8899AA;
+  --text3:#BFC8CD;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);user-select:none}
+
+/* TOPBAR — minimal */
+#topbar{
+  position:fixed;top:0;left:0;right:240px;height:44px;
+  background:rgba(15,15,30,0.9);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;z-index:100
+}
+.logo{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.1em}
+.top-status{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text2);font-family:'JetBrains Mono',monospace}
+.dot{width:5px;height:5px;border-radius:50%;background:#4ade80;box-shadow:0 0 5px rgba(74,222,128,.7);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* LEFT TOOLBAR */
+#toolbar{
+  position:fixed;left:14px;top:50%;transform:translateY(-50%);
+  width:40px;background:rgba(17,17,48,.85);backdrop-filter:blur(12px);
+  border:1px solid var(--border);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;
+  padding:8px 0;gap:2px;z-index:100
+}
+.tool{width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .15s;border:1px solid transparent}
+.tool:hover,.tool.on{color:var(--accent);background:rgba(126,200,227,.1);border-color:var(--border)}
+.tool svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tool-sep{width:20px;height:1px;background:var(--border2);margin:3px 0}
+
+/* CANVAS */
+#wrap{position:fixed;inset:0;top:44px;right:240px;overflow:hidden;cursor:default}
+#wrap.panning{cursor:grabbing}
+#canvas{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+
+/* DOT GRID */
+#wrap::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(126,200,227,0.07) 1px, transparent 1px);
+  background-size:28px 28px;z-index:0
+}
+
+/* RIGHT PANEL */
+#panel{
+  position:fixed;top:0;right:0;bottom:0;width:240px;
+  background:rgba(15,15,28,0.95);backdrop-filter:blur(16px);
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:100;overflow:hidden
+}
+.panel-header{
+  padding:14px 16px;border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between
+}
+.panel-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
+.panel-body{flex:1;overflow-y:auto;padding:12px 16px}
+.panel-body::-webkit-scrollbar{width:3px}
+.panel-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* PROPERTY GROUPS */
+.prop-group{margin-bottom:16px}
+.prop-group-title{font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border2)}
+.prop-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.prop-label{font-size:11px;color:var(--text3)}
+.prop-value{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent)}
+.prop-badge{font-size:9px;padding:2px 8px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-weight:500}
+
+/* SELECTED CARD INFO */
+#selected-info{padding:12px;background:var(--surface3);border-radius:8px;border:1px solid var(--border);margin-bottom:16px;display:none}
+#selected-info.visible{display:block}
+.sel-name{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px}
+.sel-task{font-size:10px;color:var(--text2);margin-bottom:8px;line-height:1.5}
+.sel-tasks{list-style:none}
+.sel-tasks li{font-size:10px;color:var(--text3);padding:2px 0 2px 12px;position:relative;line-height:1.4}
+.sel-tasks li::before{content:"·";position:absolute;left:3px;color:var(--text2)}
+.sel-example{font-size:10px;color:var(--text2);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border2);line-height:1.45}
+
+/* ZOOM CONTROL */
+#zoom-ctrl{
+  padding:10px 16px;border-top:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:space-between
+}
+.zoom-btn{width:24px;height:24px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
+.zoom-btn:hover{color:var(--accent);border-color:var(--accent);background:rgba(126,200,227,.08)}
+#zoom-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent)}
+
+/* CONTINENTS */
+.cont{position:absolute;border-radius:28px;padding:32px}
+.cont-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;opacity:.75}
+.cards{display:flex;flex-wrap:wrap;gap:10px}
+
+/* CARDS */
+.card{border-radius:10px;padding:13px 15px;flex:1;min-width:165px;max-width:210px;border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:all .2s;position:relative}
+.card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
+.card.selected{border-color:var(--accent) !important;box-shadow:0 0 0 1px var(--accent)}
+.card-name{font-size:12px;font-weight:600;margin-bottom:3px;line-height:1.3}
+.card-task{font-size:10px;opacity:.55;line-height:1.35}
+
+/* NUCLEUS */
+#nucleus{position:absolute;border-radius:24px;border:1.5px solid var(--accent);background:var(--surface);padding:18px 30px;text-align:center;box-shadow:0 0 50px rgba(126,200,227,.08);cursor:default}
+#nucleus h2{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.05em}
+#nucleus p{font-size:10px;color:var(--text2);margin-top:3px}
+
+/* CONNECTORS */
+.conn{stroke:var(--accent);stroke-width:1;fill:none;stroke-dasharray:5 5;opacity:.2;animation:flow 25s linear infinite}
+@keyframes flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+
+/* LEFT TOOLBAR */
+#toolbar{
+  position:fixed;left:12px;top:50%;transform:translateY(-50%);
+  width:40px;background:rgba(20,22,24,0.88);backdrop-filter:blur(12px);
+  border:1px solid rgba(126,200,227,0.12);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;
+  padding:8px 0;gap:2px;z-index:100
+}
+.tool{width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#8899AA;transition:all .15s;border:1px solid transparent}
+.tool:hover,.tool.on{color:#7EC8E3;background:rgba(126,200,227,.1);border-color:rgba(126,200,227,0.15)}
+.tool svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tool-sep{width:20px;height:1px;background:rgba(255,255,255,0.06);margin:3px 0}
+</style>
 </head>
-<body class="font-body-md text-on-surface">
-<!-- TopNavBar -->
-<header class="fixed top-0 left-0 w-full bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm flex justify-between items-center h-16 px-canvas-grid z-50">
-<div class="flex items-center gap-4">
-<span class="font-display-lg text-[24px] text-primary font-bold">Moodboard Studio</span>
-<div class="h-6 w-[1px] bg-white/10 hidden md:block"></div>
-<div class="flex items-center gap-2 hidden md:flex">
-<div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></div>
-<span class="text-on-surface-variant font-label-sm">Live Session: Production Database</span>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<div class="flex items-center gap-2 mr-2 text-on-surface-variant font-label-xs">
-<span class="material-symbols-outlined text-sm animate-spin" data-icon="sync">sync</span>
-<span class="hidden sm:inline">Synced</span>
-</div><button class="px-6 py-2 bg-primary-container text-on-primary-container font-semibold rounded-lg hover:bg-primary transition-all active:scale-95 duration-200">
-                Share
-            </button>
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high p-2 rounded-full transition-colors" data-icon="account_circle">account_circle</span>
-</div>
-</header>
-<!-- SideNavBar -->
-<nav class="fixed left-panel-margin top-1/2 -translate-y-1/2 w-16 rounded-full bg-surface/80 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col gap-unit items-center py-4 z-40">
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="near_me">near_me</span>
-</div>
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="rectangle">rectangle</span>
-</div>
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="title">title</span>
-</div>
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
-</div><div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer group relative">
-<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
-<span class="absolute left-full ml-4 px-2 py-1 bg-surface-container-highest text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Media Library</span>
-</div>
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="timeline">timeline</span>
-</div>
-<div class="text-on-surface-variant p-3 hover:text-primary transition-all active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="edit">edit</span>
-</div>
-<div class="bg-primary-container text-on-primary-container rounded-full p-3 shadow-lg active:scale-90 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="pan_tool">pan_tool</span>
-</div>
-</nav>
-<!-- Main Content Grid -->
-<main class="pt-20 pb-24 px-8 grid grid-cols-12 gap-8 h-screen">
-<!-- Preview Canvas Area (Left) -->
-<section class="col-span-12 lg:col-span-7 xl:col-span-8 relative rounded-xl bg-surface-container-lowest overflow-hidden border border-white/5 canvas-dot-grid shadow-inner">
-<div class="absolute inset-0 p-8 flex items-center justify-center">
-<!-- SVG Connections Layer -->
-<svg class="absolute inset-0 w-full h-full pointer-events-none">
-<!-- Orthogonal line with 300px fillet example -->
-<!-- From Image Block to Video Block: Horizontal then Vertical with Fillet -->
-<path class="connector-line" d="M250,200 L400,200 Q450,200 450,250 L450,450"></path>
-<!-- From Video Block to Text Block -->
-<path class="connector-line" d="M450,450 L750,450 Q800,450 800,400 L800,300"></path>
-<!-- From Bottom Right Image to center area -->
-<path class="connector-line" d="M850,550 L550,550 Q500,550 500,500 L500,400"></path>
-</svg>
-<!-- Floating Moodboard Elements -->
-<div class="relative w-full h-full">
-<!-- Image Block -->
-<div class="absolute top-[10%] left-[5%] w-48 h-64 bg-surface-container rounded-lg border border-white/10 shadow-2xl hover:scale-105 transition-transform duration-500 overflow-hidden group">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A high-contrast abstract digital painting featuring fluid, liquid metal shapes in shades of deep cerulean and silver. The composition is dynamic and futuristic, with a technical lighting setup that emphasizes the glossy texture of the surfaces. The overall aesthetic is clean and professional, matching a dark corporate UI design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuE-4XbkiGvG-pOIGvQdrfGyl1HW3J6SoTwEdvMoLfDcTYFlltnldmmnvRdnE8OQFfMRNSPaGb6YMQJJFrAQMoRk1Z6kU2bO15B11MJUa_zBAE1nGRE0k5vXbb-oFNKfxNbUlQ3kj15lnwQS8ItkucOTGVhdmUJ3OdXT74wl1YmC3BN0aas8QSkH46TLu7z0w-vPcjRrg-iBOjnTuTL_og0agp1QAt8Nejy2M2y2qPOv2T7kj7mNW3S6_iM2d4l3eILcf64ad95LA"/>
-<div class="absolute bottom-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[10px] font-label-xs uppercase">Texture_A.png</div>
-</div>
-<!-- Video Placeholder -->
-<div class="absolute top-[40%] left-[30%] w-80 h-48 bg-black rounded-lg border border-white/20 shadow-2xl overflow-hidden flex items-center justify-center group cursor-pointer">
-<img class="absolute inset-0 w-full h-full object-cover opacity-60" data-alt="A cinematic still of a futuristic server room with rows of glowing cyan lights and sleek dark hardware. The shot is captured with a shallow depth of field, highlighting technical precision and high-performance computing environments. The mood is moody and high-tech, fitting for a sophisticated media production software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBTrSjvjHsfgAStO9frFSBnqG42o41CTLGC4luD3gak6pfvLApMkXnDhqL1XQamLL5265lxhbPHba2godWtfQpE60FUAIMlInFCWZ1uZ6JjwsAiJ8WzjZ3rKnPsZbm_hInz4H05LgctGkzp-D4XOt69zR0pVXSmA5VF5PuuP9yekyebLqvxdJ0ueRu4uapRnu9u_o_uLdfZCSiM2idPB27PRt2AZSo9Dxr7jlCxZXO4nQ6uhy1xqZ8ejpk_52JgTxRZci2TzNBZbQ"/>
-<div class="relative z-10 w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shadow-xl group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
-</div>
-<div class="absolute top-2 right-2 px-2 py-1 bg-primary-container/20 border border-primary-container/30 text-primary rounded text-[10px] font-label-xs">VIMEO_04</div>
-</div>
-<!-- Text Block with Links -->
-<div class="absolute top-[15%] right-[15%] w-64 p-4 glass-panel rounded-lg shadow-xl border border-primary/20">
-<h4 class="font-headline-md text-primary mb-2 text-[18px]">Visual Narrative</h4>
-<p class="text-sm text-on-surface-variant leading-relaxed mb-4">
-                            Exploring the intersection of <span class="text-primary underline cursor-pointer">brutalism</span> and digital fluidity.
-                        </p>
-<div class="flex gap-2">
-<div class="px-2 py-1 bg-surface-container-highest rounded text-[10px] font-code-sm border border-white/5">#concept</div>
-<div class="px-2 py-1 bg-surface-container-highest rounded text-[10px] font-code-sm border border-white/5">#export</div>
-</div>
-</div>
-<!-- Small Supporting Image -->
-<div class="absolute bottom-[10%] right-[10%] w-40 h-40 bg-surface-container rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="An intricate satellite view of a city at night with glowing amber lights forming complex web-like patterns against a dark blue earth. The image represents global connectivity and complex data structures, rendered with high clarity and deep saturation to complement a technical dark-mode user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaaTN4MlH7u7ICDzSlMxwSU_INbHVBJfhG8zWlZnn1JGkI_kM-HpkI5NDPupzveSPTWlEOxNm6X-TriCyt8eZYdV4U_BHOyx2Qkx2p2vOow0c8cVCAtQe4k0kTghC8oz1ugVXu-1_qxZ5_bDCmmes4fgRLtwKk8Wb_tNAemH995wgyoMZbyF747sCER340MB45gEPS9M5uwdIRl6WxFuiLvJgxMuHWSOd8F2-B7_zc5oTT50-aGFGkEzoFIrkNcZEPoGQkOunA7KM"/>
-</div>
-</div>
-</div>
-<!-- Canvas Controls Overlay -->
-<div class="absolute bottom-4 left-4 flex gap-2">
-<button class="p-2 bg-surface-container-high/80 rounded hover:bg-primary/20 transition-colors"><span class="material-symbols-outlined text-sm" data-icon="zoom_in">zoom_in</span></button>
-<button class="p-2 bg-surface-container-high/80 rounded hover:bg-primary/20 transition-colors"><span class="material-symbols-outlined text-sm" data-icon="grid_on">grid_on</span></button>
-</div>
-</section>
-<!-- Right Panels (Export & Capabilities) -->
-<aside class="col-span-12 lg:col-span-5 xl:col-span-4 flex flex-col gap-6 h-full overflow-y-auto custom-scrollbar pr-2">
-<!-- Code Export Panel -->
-<div class="glass-panel rounded-xl flex flex-col overflow-hidden shadow-2xl">
-<div class="px-6 py-4 border-b border-white/10 flex justify-between items-center bg-surface-container-high">
-<h3 class="font-headline-md text-lg flex items-center gap-2">
-<span class="material-symbols-outlined text-primary" data-icon="code">code</span>
-                        Code Export
-                    </h3>
-<div class="flex gap-2">
-<button class="p-1.5 hover:bg-white/5 rounded"><span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span></button>
-<button class="p-1.5 hover:bg-white/5 rounded"><span class="material-symbols-outlined text-sm" data-icon="download">download</span></button>
-</div>
-</div>
-<!-- Tabs -->
-<div class="flex border-b border-white/5 bg-surface-container">
-<button class="flex-1 px-4 py-3 text-sm font-medium border-b-2 border-primary text-primary transition-all" id="tab-html">Orthogonal SVG</button>
-<button class="flex-1 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all" id="tab-tailwind">Tailwind Config</button>
-</div>
-<!-- Code Content -->
-<div class="p-4 bg-surface-container-lowest font-code-sm text-[13px] text-primary/80 overflow-x-auto min-h-[300px]">
-<pre class="whitespace-pre"><code><span class="text-on-surface-variant">&lt;!-- Filleted Orthogonal Path --&gt;</span>
-&lt;<span class="text-tertiary-container">svg</span> <span class="text-primary">class</span>=<span class="text-secondary-container">"connector"</span>&gt;
-  <span class="text-on-surface-variant">&lt;!-- 
-    M = Move to Start
-    L = Line to corner (minus radius)
-    Q = Quadratic curve (corner)
-    L = Line to end point
-  --&gt;</span>
-  &lt;<span class="text-tertiary-container">path</span> <span class="text-primary">d</span>=<span class="text-secondary-container">"M 250,200 
-           L 400,200 
-           Q 450,200 450,250 
-           L 450,450"</span> 
-        <span class="text-primary">stroke-radius</span>=<span class="text-secondary-container">"300"</span> /&gt;
-&lt;/<span class="text-tertiary-container">svg</span>&gt;
+<body>
 
-<span class="text-on-surface-variant">&lt;!-- Dynamic Scaling Logic --&gt;</span>
-<span class="text-tertiary-container">const</span> fillet = <span class="text-secondary-container">Math.min(300, dist / 2)</span>;</code></pre>
+<!-- TOPBAR -->
+<div id="topbar">
+  <div class="logo">ALBERT CALLEJO AMAT</div>
+  <div class="top-status">
+    <div class="dot"></div>
+    <span>Portfolio Canvas · scroll zoom · mid-click pan</span>
+  </div>
 </div>
-<div class="p-4 bg-surface-container-high border-t border-white/5 flex justify-between items-center">
-<span class="text-[11px] font-label-xs text-on-surface-variant uppercase tracking-wider">Engine: Kinetic-01-V4</span>
-<button class="text-xs text-primary font-bold hover:underline">View Documentation</button>
+
+  <div class="tool-sep"></div>
+  <div class="tool" title="Zoom in" onclick="zoom(1.2)">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+  </div>
+  <div class="tool" title="Zoom out" onclick="zoom(0.8)">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>
+  </div>
+  <div class="tool-sep"></div>
+  <div class="tool" title="Fit all" onclick="fitAll()">
+    <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+  </div>
+  <div class="tool" title="Reset" onclick="resetView()">
+    <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+  </div>
 </div>
+
+
+<!-- LEFT TOOLBAR -->
+<div id="toolbar">
+  <!-- Arrow / Select -->
+  <div class="tool on" title="Select (V)">
+    <svg viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9 20z" stroke="currentColor" fill="none"/></svg>
+  </div>
+  <!-- Marquee -->
+  <div class="tool" title="Marquee (M)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="3 2"/></svg>
+  </div>
+  <div class="tool-sep"></div>
+  <!-- Text -->
+  <div class="tool" title="Text (T)">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16M12 6v13M9 19h6"/></svg>
+  </div>
+  <!-- Line -->
+  <div class="tool" title="Line (L)">
+    <svg viewBox="0 0 24 24"><path d="M5 19L19 5"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/><circle cx="19" cy="5" r="1.5" fill="currentColor"/></svg>
+  </div>
+  <div class="tool-sep"></div>
+  <!-- Upload image -->
+  <div class="tool" title="Upload image">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+  </div>
+  <!-- Upload file -->
+  <div class="tool" title="Upload file">
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+  </div>
 </div>
-<!-- Canvas Capabilities Card -->
-<div class="bg-surface-container rounded-xl p-6 border border-white/5 shadow-lg relative overflow-hidden group">
-<!-- Background Accent Glow -->
-<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-all"></div>
-<h3 class="font-headline-md text-lg mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
-                    Canvas Capabilities
-                </h3>
-<ul class="space-y-4">
-<li class="flex items-center justify-between group/item">
-<div class="flex items-center gap-3">
-<span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span class="text-sm font-medium">Editable Shapes</span>
+
+<!-- CANVAS -->
+<div id="wrap">
+  <div id="canvas">
+    <svg style="position:absolute;left:0;top:0;width:2000px;height:1200px;pointer-events:none;overflow:visible">
+      <path class="conn" d="M480,260 L780,260 Q820,260 820,340 L820,440"/>
+      <path class="conn" d="M920,320 L920,420"/>
+      <path class="conn" d="M480,700 Q600,700 680,580 L780,500"/>
+      <path class="conn" d="M760,660 L800,560"/>
+      <path class="conn" d="M1240,300 L1000,300 Q960,300 940,380 L940,440"/>
+      <path class="conn" d="M1240,700 L1040,580 Q980,540 960,490"/>
+    </svg>
+
+    <!-- NUCLEUS -->
+    <div id="nucleus" style="left:780px;top:440px;width:210px">
+      <h2>ALBERT CALLEJO</h2>
+      <p>TA · Animator · 3D · Barcelona</p>
+    </div>
+
+    <!-- ANIMATION & RIGGING -->
+    <div class="cont" style="left:40px;top:80px;width:440px;background:#3D0F20">
+      <div class="cont-title" style="color:#F4C0D1">Animation & Rigging</div>
+      <div class="cards">
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="Life Giver" data-task="Character & creature animation"
+          data-tasks="Walk, run, jump, fight cycles for games|Creature & animal locomotion and acting|Secondary animation: cloth, hair, accessories|Facial & gestural expression|Mocap cleanup & polish"
+          data-ex="18 animations for main character including combat and cinematics at Burzon Comenge Studio.">
+          <div class="card-name">Life Giver</div><div class="card-task" style="color:#ED93B1">Character & creature animation</div>
+        </div>
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="Curve Sculptor" data-task="Animation curves & refinement"
+          data-tasks="Graph editor: eases, breakdowns, anticipation|Imported motion correction|Stylized or realistic timing|Curve optimization reducing keyframes"
+          data-ex="Polish of melee attack animation with correct anticipation, impact and follow-through.">
+          <div class="card-name">Curve Sculptor</div><div class="card-task" style="color:#ED93B1">Animation curves & refinement</div>
+        </div>
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="State Machine Designer" data-task="Animation systems in engines"
+          data-tasks="State design: idle, walk, run, combat, death...|Blending, smooth transitions & conditions|Locomotion: root motion, IK feet|Animation layers for additive animations|Runtime behaviour debugging"
+          data-ex="22-state animation system with conditional transitions for mobile RPG.">
+          <div class="card-name">State Machine Designer</div><div class="card-task" style="color:#ED93B1">Animation systems in engines</div>
+        </div>
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="Motion Poet" data-task="Motion graphics & AV choreography"
+          data-tasks="3D motion graphics for UI, branding, pitches|3D choreography synced with audio|Expressive non-figurative animation|Real-time VJing & AV content"
+          data-ex="3-minute choreography with procedural geometry for live mapping show.">
+          <div class="card-name">Motion Poet</div><div class="card-task" style="color:#ED93B1">Motion graphics & AV choreo</div>
+        </div>
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="Prop Choreographer" data-task="Objects, vehicles & machinery"
+          data-tasks="Vehicles: suspension, wheels, driving mechanics|Mechanical objects: doors, gears, pistons|Environment props: wind foliage, flags, liquids|Cinematics with coordinated props & camera"
+          data-ex="Space door system with 6 articulated parts and locking cinematic.">
+          <div class="card-name">Prop Choreographer</div><div class="card-task" style="color:#ED93B1">Objects, vehicles & machinery</div>
+        </div>
+        <div class="card" style="background:#5C1830;color:#F4C0D1"
+          data-name="Timing Architect" data-task="Game feel & action readability"
+          data-tasks="Duration tuning for clear visual feedback|Short readable animations for mobile & casual|VFX, sound & animation sync for impact|Re-timing for better perceived response"
+          data-ex="Re-timing of 8 UI animations that reduced perception of game slowness.">
+          <div class="card-name">Timing Architect</div><div class="card-task" style="color:#ED93B1">Game feel & readability</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECHNICAL ART & PIPELINE -->
+    <div class="cont" style="left:560px;top:40px;width:660px;background:#031E3E">
+      <div class="cont-title" style="color:#B5D4F4">Technical Art & Pipeline</div>
+      <div class="cards">
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Tool Forger" data-task="Custom tools & scripts for the studio"
+          data-tasks="Export scripts with auto-validation|Naming convention checkers|Batch processors: rename, rescale, re-export|Desktop utilities for repetitive tasks|Asset report generators"
+          data-ex="TimeObserver — Python app published on Gumroad. Analyses a 3D project by file dates and generates an HTML report of work sessions. gumroad.com/l/ayten">
+          <div class="card-name">Tool Forger</div><div class="card-task" style="color:#85B7EB">Custom tools & scripts</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Bridge Builder" data-task="App-to-app connectors & automation"
+          data-tasks="DCC connectors: Houdini↔Unity, Blender↔Unreal|Data exchange scripts (JSON, XML, CSV)|Asset sync tools between repositories|Multi-app workflow automation"
+          data-ex="HDA that exports procedural assets directly with engine metadata, no manual steps.">
+          <div class="card-name">Bridge Builder</div><div class="card-task" style="color:#85B7EB">App-to-app connectors</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Bottleneck Buster" data-task="Pipeline bottleneck removal"
+          data-tasks="Analysis of manual steps costing art team time|Technical or process solution proposals|Replacement of repetitive tasks with automation|Workflow documentation & team training"
+          data-ex="Automatic LOD generation eliminating 3h of manual work per asset.">
+          <div class="card-name">Bottleneck Buster</div><div class="card-task" style="color:#85B7EB">Bottleneck removal</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Batch Commander" data-task="Mass asset processing"
+          data-tasks="Re-export hundreds of assets with new params|Bulk format conversion (OBJ→FBX, PNG→TGA)|Texture rescaling & recompression by platform|Auto-generation of LOD, shadow, collision meshes"
+          data-ex="Script re-exporting all FBX in a directory adapting scale and axes for engine.">
+          <div class="card-name">Batch Commander</div><div class="card-task" style="color:#85B7EB">Mass asset processing</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Naming Sheriff" data-task="Naming conventions & validation"
+          data-tasks="Naming guides for assets, materials, textures, bones|Validator checking assets before project integration|Auto-renaming scripts for bad-named batches|Validation integrated into commit/export workflow"
+          data-ex="Pre-commit checker warning when an asset doesn't follow project convention.">
+          <div class="card-name">Naming Sheriff</div><div class="card-task" style="color:#85B7EB">Naming conventions</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Time Observer" data-task="Production logging & reporting"
+          data-tasks="Scripts logging time per phase and per asset|Simple progress dashboards in spreadsheets|Reports for estimation & future project planning|Identification of disproportionate time phases"
+          data-ex="TimeObserver — published Python app. gumroad.com/l/ayten">
+          <div class="card-name">Time Observer</div><div class="card-task" style="color:#85B7EB">Production logging</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Asset Shepherd" data-task="Asset tracking across production"
+          data-tasks="Asset state tracking (WIP/review/approved)|Clear scalable directory & repository structure|Coordination between modelers, riggers, animators|Dependency tracking: which assets block others"
+          data-ex="Asset tracking spreadsheet with states, owners and preview links.">
+          <div class="card-name">Asset Shepherd</div><div class="card-task" style="color:#85B7EB">Asset tracking</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Format Translator" data-task="3D format interchange"
+          data-tasks="FBX, GLTF, USD, OBJ, Alembic lossless exchange|Scale, axis, normals issues resolution|Bulk conversion automation scripts|Conversion chain documentation for the team"
+          data-ex="Blender→Unity export guide preserving materials and armatures.">
+          <div class="card-name">Format Translator</div><div class="card-task" style="color:#85B7EB">3D format interchange</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Style Guide Keeper" data-task="Technical art bibles"
+          data-tasks="Polygon limit docs per asset category|Naming, UV, materials & asset structure guides|Pre-delivery QA checklist for artists & outsourcers|Visual good/bad examples for each guideline"
+          data-ex="12-page technical art bible for mobile game with visual examples for outsourcing.">
+          <div class="card-name">Style Guide Keeper</div><div class="card-task" style="color:#85B7EB">Technical art bibles</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="QA Eye" data-task="Visual & technical asset review"
+          data-tasks="Flipped normals, UV stretching, Z-fighting detection|Scale, pivot, orientation & naming verification|Material review: wrong slots, missing textures|Feedback management to artists & outsourcers"
+          data-ex="Review of 60 outsourced assets with correction report per batch.">
+          <div class="card-name">QA Eye</div><div class="card-task" style="color:#85B7EB">Asset quality review</div>
+        </div>
+        <div class="card" style="background:#0A3A6E;color:#B5D4F4"
+          data-name="Profiler" data-task="Engine performance optimization"
+          data-tasks="CPU/GPU profiling to identify problematic assets|Draw call reduction via batching, atlases, instancing|VFX optimization: overdraw, particle limits|Memory budget: texture resolution per platform"
+          data-ex="Mobile scene optimization: −35% draw calls, −20% GPU memory.">
+          <div class="card-name">Profiler</div><div class="card-task" style="color:#85B7EB">Performance optimization</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D ART -->
+    <div class="cont" style="left:40px;top:660px;width:480px;background:#042E26">
+      <div class="cont-title" style="color:#9FE1CB">3D Art</div>
+      <div class="cards">
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="UV Knife" data-task="UV unwrapping & atlas optimization"
+          data-tasks="Manual unwrap for characters with invisible seams|Efficient atlases minimizing draw calls|Optimal texel distribution by visibility zone|Sprite sheets & texture atlases for 2D & UI|UV correction for outsourced assets"
+          data-ex="Character mobile atlas 1024×1024 with 4 unified materials and no visible seam.">
+          <div class="card-name">UV Knife</div><div class="card-task" style="color:#5DCAA5">UV unwrapping & atlases</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Poly Surgeon" data-task="Clean production-ready modeling"
+          data-tasks="Hard-surface modeling with correct edge loops|Retopology of scanned or sculpted assets|Polycount optimization for target platform|Environment assets: architecture, furniture, props|Topology correction of outsourced assets"
+          data-ex="Retopology of a scanned character from 800k polygons to 8k game-ready.">
+          <div class="card-name">Poly Surgeon</div><div class="card-task" style="color:#5DCAA5">Clean production modeling</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Procedural Garden" data-task="Reusable procedural assets"
+          data-tasks="Parametric HDAs for buildings, vegetation, terrain|Controlled variation with visual coherence|Assets with parameters exposed to engine|Scatter systems for natural distribution"
+          data-ex="Building facade HDA with window, balcony and material variable controls.">
+          <div class="card-name">Procedural Garden</div><div class="card-task" style="color:#5DCAA5">Procedural assets & envs</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Surface Whisperer" data-task="Materials, textures & look dev"
+          data-tasks="Painted & procedural texturing for any surface|Photo reference reading & material reproduction|PBR materials for real-time engines|Material blending for transitions & special effects"
+          data-ex="Medieval stone material with painted details and procedural variation for mapping.">
+          <div class="card-name">Surface Whisperer</div><div class="card-task" style="color:#5DCAA5">Materials & look dev</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Light Reader" data-task="Real-time lighting & look"
+          data-tasks="Dynamic & baked lighting setup for any environment|Light probes, reflection captures, mobile GI|Post-process: color grading, bloom, DOF|Optimization: baking strategies, lightmap resolution"
+          data-ex="Outdoor mobile game environment with baked lightmap and dynamic sky within budget.">
+          <div class="card-name">Light Reader</div><div class="card-task" style="color:#5DCAA5">Real-time lighting</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Atlas Architect" data-task="Texture memory optimization"
+          data-tasks="Texture atlas creation & maintenance for UI & envs|Animated sprite sheets for 2D & particle effects|Optimal packing to minimize memory & draw calls|Correct atlas integration in engine material system"
+          data-ex="Reduction from 12 materials to 2 atlases in mobile project, −40% draw calls.">
+          <div class="card-name">Atlas Architect</div><div class="card-task" style="color:#5DCAA5">Texture memory optimization</div>
+        </div>
+        <div class="card" style="background:#065040;color:#9FE1CB"
+          data-name="Scan Integrator" data-task="Photogrammetry pipeline"
+          data-tasks="Scan mesh cleanup: holes, artifacts, microgeometry|Retopology & adaptation for real-time use|Detail baking from scan to normal map|Color calibration of photogrammetric textures"
+          data-ex="Building facade scan integration for game: from 2M polygons to 3k + normal map.">
+          <div class="card-name">Scan Integrator</div><div class="card-task" style="color:#5DCAA5">Photogrammetry pipeline</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REAL-TIME & ENGINES -->
+    <div class="cont" style="left:580px;top:680px;width:500px;background:#1C1850">
+      <div class="cont-title" style="color:#CECBF6">Real-time & Engines</div>
+      <div class="cards">
+        <div class="card" style="background:#2E2880;color:#CECBF6"
+          data-name="Engine Whisperer" data-task="Deep engine internals knowledge"
+          data-tasks="Unexpected behaviour debugging (batching, culling, shading)|Render pipeline config (URP, HDRP, Lumen/Nanite)|Platform target settings optimization|Technical support to artists when assets misbehave"
+          data-ex="Resolution of why materials broke batching in Unity URP affecting 40 assets.">
+          <div class="card-name">Engine Whisperer</div><div class="card-task" style="color:#AFA9EC">Deep engine knowledge</div>
+        </div>
+        <div class="card" style="background:#2E2880;color:#CECBF6"
+          data-name="Particle Painter" data-task="Real-time VFX implementation"
+          data-tasks="Particle effects: explosions, magic, fire, smoke|Animated shaders: dissolve, teleport, impact|UI VFX: transitions, mechanic visual feedback|Mobile VFX optimization: overdraw, count limits"
+          data-ex="12 combat VFX for mobile RPG within budget of 2 draw calls per effect.">
+          <div class="card-name">Particle Painter</div><div class="card-task" style="color:#AFA9EC">Real-time VFX</div>
+        </div>
+        <div class="card" style="background:#2E2880;color:#CECBF6"
+          data-name="Shader Tailor" data-task="Custom materials & shaders"
+          data-tasks="Stylized shaders: toon, watercolor, pixel art, outline|Special materials: transparency, dissolve, distortion|Environment: water, glass, skin, metal, animated emissive|Shader optimization: instruction reduction per platform"
+          data-ex="Character shader with dynamic outline and SSS-approximated skin for cartoon mobile.">
+          <div class="card-name">Shader Tailor</div><div class="card-task" style="color:#AFA9EC">Custom shaders</div>
+        </div>
+        <div class="card" style="background:#2E2880;color:#CECBF6"
+          data-name="Virtual Director" data-task="Engine as AV production tool"
+          data-tasks="Virtual Production with real camera tracking|Real-time cinematography: cameras, moves, cuts|Cinematic sequencer: cutscenes, trailers|Live events & streaming with real-time 3D"
+          data-ex="Broadcast production with Unreal Engine, optical tracking and LED wall for corporate event.">
+          <div class="card-name">Virtual Director</div><div class="card-task" style="color:#AFA9EC">Engine as AV tool</div>
+        </div>
+        <div class="card" style="background:#2E2880;color:#CECBF6"
+          data-name="Mapping Wizard" data-task="Architectural videomapping"
+          data-tasks="3D modeling of projection geometry (buildings, objects)|Multi-projector calibration for irregular surfaces|Distortion-corrected content creation|Live playback & control: cues, loops, transitions"
+          data-ex="25×15m facade show with 4 calibrated projectors, 3D content and musical sync.">
+          <div class="card-name">Mapping Wizard</div><div class="card-task" style="color:#AFA9EC">Architectural videomapping</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CROSS-DISCIPLINARY -->
+    <div class="cont" style="left:1180px;top:60px;width:480px;background:#3A1408">
+      <div class="cont-title" style="color:#F5C4B3">Cross-disciplinary</div>
+      <div class="cards">
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Generalist Sniper" data-task="Any-role coverage when needed"
+          data-tasks="Covers rigger, animator, VFX artist or TA as needed|Unblocks production during absence or peak workload|Enough of each discipline to deliver in time|Ideal for small teams, indie or prototype phases"
+          data-ex="At Ivanovich Games covered modeling, rigging, animation, Unity integration and testing.">
+          <div class="card-name">Generalist Sniper</div><div class="card-task" style="color:#F0997B">Any-role coverage</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Rapid Prototyper" data-task="Functional concepts in 48h"
+          data-tasks="Playable prototypes from scratch in 48-72h|Environment grey-boxing for gameplay validation|Interactive mechanic mockups for pitching|Fast iteration without fear of discarding"
+          data-ex="Playable 3D puzzle prototype in 2 days for internal pitch at Ivanovich Games.">
+          <div class="card-name">Rapid Prototyper</div><div class="card-task" style="color:#F0997B">Concepts in 48h</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Live Show Gamifier" data-task="AV live show gamification"
+          data-tasks="Mobile app for audience participation in live mapping shows|Reward & engagement system design for live events|Real-time audience interaction with visual show|Crowd-to-stage feedback mechanics"
+          data-ex="Parallel mobile app allowing audience to participate in mapping show in real time.">
+          <div class="card-name">Live Show Gamifier</div><div class="card-task" style="color:#F0997B">Live show gamification</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Interactive Architect" data-task="Interactive experiences"
+          data-tasks="Installations with sensors, cameras or body tracking|Touchscreen kiosks for museums or events|VR/AR experiences for non-gamers|Real-time feedback: projection reacting to audience"
+          data-ex="Interactive installation for museum where projection responded to visitors via tracking.">
+          <div class="card-name">Interactive Architect</div><div class="card-task" style="color:#F0997B">Interactive experiences</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Visual Communicator" data-task="Visual communication materials"
+          data-tasks="Style frames for project pitches: character, env, palette|Visual technical or artistic proposals|UI & screen mockups for pre-production|Animatics & previz to validate cameras & timing"
+          data-ex="Style frames + animatic for new mobile game pitch presented to publisher.">
+          <div class="card-name">Visual Communicator</div><div class="card-task" style="color:#F0997B">Visual communication</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Science Storyteller" data-task="Scientific illustration & explainers"
+          data-tasks="Technical & scientific 3D illustrations|Explainer videos for dental, medical, industrial clients|Data visualization rendered as 3D narrative|Scientific communication assets for outreach"
+          data-ex="Dental implant procedure explainer video for Microdent client.">
+          <div class="card-name">Science Storyteller</div><div class="card-task" style="color:#F0997B">Scientific illustration</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Point Cloud Sculptor" data-task="3D data & GIS visualization"
+          data-tasks="GIS dataset representation as 3D geometry & relief|Topographic cartography & procedural maps|Interactive 3D visualizations via Unity WebGL|Archaeological & geographical site reconstruction"
+          data-ex="Interactive topographic Montserrat visualization embedded in web via Unity WebGL.">
+          <div class="card-name">Point Cloud Sculptor</div><div class="card-task" style="color:#F0997B">GIS & 3D data viz</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Product Revealer" data-task="3D product for advertising"
+          data-tasks="Accurate 3D modeling from technical blueprints|Product presentation renders for advertising|Animated product demos for clients|Interactive product visualization apps"
+          data-ex="3D product modeling from blueprints for advertising presentation.">
+          <div class="card-name">Product Revealer</div><div class="card-task" style="color:#F0997B">Product 3D advertising</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Fluid Narrator" data-task="Fluid simulations for communication"
+          data-tasks="3D fluid simulations for client communication|Scientific accuracy + visual appeal balance|Fluid behavior for product demos|VFX fluid integration in explainer videos"
+          data-ex="Fluid simulation for scientific and advertising communication at 3datagraph.com.">
+          <div class="card-name">Fluid Narrator</div><div class="card-task" style="color:#F0997B">Fluid simulations</div>
+        </div>
+        <div class="card" style="background:#5C2510;color:#F5C4B3"
+          data-name="Data Sculptor" data-task="Spatial data in 3D"
+          data-tasks="GIS datasets as 3D geometry & relief|Topographic & procedural maps|3D infographics for science, architecture, urbanism|Real-time data visualization via scripting"
+          data-ex="Interactive topographic data visualization for geographic outreach application.">
+          <div class="card-name">Data Sculptor</div><div class="card-task" style="color:#F0997B">Spatial data in 3D</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOFT & MINDSET -->
+    <div class="cont" style="left:1180px;top:680px;width:440px;background:#222220">
+      <div class="cont-title" style="color:#D3D1C7">Soft & Mindset</div>
+      <div class="cards">
+        <div class="card" style="background:#3A3A38;color:#D3D1C7"
+          data-name="Translator Node" data-task="Art↔programming bridge"
+          data-tasks="Explains technical limits to artists in visual terms|Translates artistic needs to programmers|Facilitates interdepartmental kickoffs & reviews|Detects misunderstandings before they become rework"
+          data-ex="Kickoff meeting translating programmer polygon budget into visual examples for artists.">
+          <div class="card-name">Translator Node</div><div class="card-task" style="color:#B4B2A9">Art↔programming bridge</div>
+        </div>
+        <div class="card" style="background:#3A3A38;color:#D3D1C7"
+          data-name="R&D Scout" data-task="New techniques research"
+          data-tasks="Tracking engine, DCC & workflow industry news|New technique exploration prototypes|Internal pipeline improvement proposals|Honest viability evaluation: cost vs benefit"
+          data-ex="Houdini Engine adoption proposal for procedural level generation, with demonstrative prototype.">
+          <div class="card-name">R&D Scout</div><div class="card-task" style="color:#B4B2A9">New techniques research</div>
+        </div>
+        <div class="card" style="background:#3A3A38;color:#D3D1C7"
+          data-name="Solo Pipeline" data-task="Full pipeline ownership"
+          data-tasks="Completed full cycle: concept→model→rig→anim→engine→publish|Technical & artistic decisions without supervision|Task estimation accuracy based on direct experience|Knows real cost of each phase"
+          data-ex="Tionet — game published on Google Play, full pipeline solo from zero.">
+          <div class="card-name">Solo Pipeline</div><div class="card-task" style="color:#B4B2A9">Full pipeline ownership</div>
+        </div>
+        <div class="card" style="background:#3A3A38;color:#D3D1C7"
+          data-name="Multidisciplinary Receptor" data-task="Adjacent domain knowledge"
+          data-tasks="Music & synthesis: timing, rhythm applied to animation|DIY electronics: hardware for installations|Robotics: kinematics applied to rigging|RC & real physics: movement for simulation"
+          data-ex="Application of ADSR synthesis concepts to animation timing curve design.">
+          <div class="card-name">Multidisc. Receptor</div><div class="card-task" style="color:#B4B2A9">Adjacent domain knowledge</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="check_circle">check_circle</span>
-</li>
-<li class="flex items-center justify-between group/item">
-<div class="flex items-center gap-3">
-<span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span class="text-sm font-medium">Orthogonal paths with up to 300px fillet</span>
+
+<!-- RIGHT PANEL -->
+<div id="panel">
+  <div class="panel-header">
+    <span class="panel-title">Properties</span>
+    <div style="display:flex;align-items:center;gap:6px">
+      <div class="dot"></div>
+      <span style="font-size:9px;color:var(--text2);font-family:'JetBrains Mono',monospace">canvas</span>
+    </div>
+  </div>
+  <div class="panel-body">
+
+    <!-- SELECTED CARD -->
+    <div id="selected-info">
+      <div class="sel-name" id="sel-name">—</div>
+      <div class="sel-task" id="sel-task"></div>
+      <ul class="sel-tasks" id="sel-tasks"></ul>
+      <div class="sel-example" id="sel-ex"></div>
+    </div>
+
+    <!-- CANVAS PROPERTIES -->
+    <div class="prop-group">
+      <div class="prop-group-title">Canvas</div>
+      <div class="prop-row">
+        <span class="prop-label">Mode</span>
+        <span class="prop-badge" style="background:rgba(126,200,227,.1);color:var(--accent);border:1px solid var(--border)">Infinite</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Grid</span>
+        <span class="prop-value">28px</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Background</span>
+        <span class="prop-value">#0F0F1E</span>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="prop-group">
+      <div class="prop-group-title">Navigation</div>
+      <div class="prop-row">
+        <span class="prop-label">Pan</span>
+        <span class="prop-badge" style="background:var(--surface3);color:var(--text3);border:1px solid var(--border2)">Mid-click drag</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Zoom</span>
+        <span class="prop-badge" style="background:var(--surface3);color:var(--text3);border:1px solid var(--border2)">Scroll wheel</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Select</span>
+        <span class="prop-badge" style="background:var(--surface3);color:var(--text3);border:1px solid var(--border2)">Left click</span>
+      </div>
+    </div>
+
+    <!-- CONTINENTS -->
+    <div class="prop-group">
+      <div class="prop-group-title">Continents</div>
+      <div class="prop-row"><span class="prop-label">Animation & Rigging</span><span class="prop-badge" style="background:#3D0F20;color:#F4C0D1">6</span></div>
+      <div class="prop-row"><span class="prop-label">Technical Art & Pipeline</span><span class="prop-badge" style="background:#031E3E;color:#B5D4F4">11</span></div>
+      <div class="prop-row"><span class="prop-label">3D Art</span><span class="prop-badge" style="background:#042E26;color:#9FE1CB">7</span></div>
+      <div class="prop-row"><span class="prop-label">Real-time & Engines</span><span class="prop-badge" style="background:#1C1850;color:#CECBF6">5</span></div>
+      <div class="prop-row"><span class="prop-label">Cross-disciplinary</span><span class="prop-badge" style="background:#3A1408;color:#F5C4B3">10</span></div>
+      <div class="prop-row"><span class="prop-label">Soft & Mindset</span><span class="prop-badge" style="background:#222220;color:#D3D1C7">4</span></div>
+    </div>
+
+    <!-- LINKS -->
+    <div class="prop-group">
+      <div class="prop-group-title">Links</div>
+      <div class="prop-row"><span class="prop-label">ArtStation</span><a href="https://artstation.com/albertcallejo" target="_blank" style="color:var(--accent);font-size:11px;text-decoration:none">artstation.com/albertcallejo</a></div>
+      <div class="prop-row"><span class="prop-label">Web</span><a href="https://electricavisuals.com" target="_blank" style="color:var(--accent);font-size:11px;text-decoration:none">electricavisuals.com</a></div>
+      <div class="prop-row"><span class="prop-label">TimeObserver</span><a href="https://gumroad.com/l/ayten" target="_blank" style="color:var(--accent);font-size:11px;text-decoration:none">gumroad.com/l/ayten</a></div>
+      <div class="prop-row"><span class="prop-label">Tionet</span><a href="https://play.google.com/store/apps/details?id=com.Electricavisuals.TIONET" target="_blank" style="color:var(--accent);font-size:11px;text-decoration:none">Google Play</a></div>
+    </div>
+
+  </div>
+
+  <!-- ZOOM CONTROL -->
+  <div id="zoom-ctrl">
+    <button class="zoom-btn" onclick="zoom(0.8)">−</button>
+    <span id="zoom-val">75%</span>
+    <button class="zoom-btn" onclick="zoom(1.2)">+</button>
+    <button class="zoom-btn" onclick="fitAll()" title="Fit all" style="margin-left:4px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+    </button>
+    <button class="zoom-btn" onclick="resetView()" title="Reset" style="margin-left:2px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </div>
 </div>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="check_circle">check_circle</span>
-</li>
-<li class="flex items-center justify-between group/item">
-<div class="flex items-center gap-3">
-<span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span class="text-sm font-medium">Embedded Video (YouTube/Vimeo)</span>
-</div>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="check_circle">check_circle</span>
-</li>
-<li class="flex items-center justify-between group/item">
-<div class="flex items-center gap-3">
-<span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span class="text-sm font-medium">Live Links</span>
-</div>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="check_circle">check_circle</span>
-</li>
-<li class="flex items-center justify-between group/item">
-<div class="flex items-center gap-3">
-<span class="w-2 h-2 rounded-full bg-primary-container"></span>
-<span class="text-sm font-medium">Media Import</span>
-</div>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="check_circle">check_circle</span>
-</li>
-</ul>
-<div class="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
-<div class="flex -space-x-3">
-<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px]">JS</div>
-<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px]">PY</div>
-<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px]">C+</div>
-</div>
-<span class="text-xs text-on-surface-variant">Available in all SDKs</span>
-</div>
-</div>
-</aside>
-</main>
-<!-- BottomNavBar -->
-<footer class="fixed bottom-panel-margin left-1/2 -translate-x-1/2 rounded-full bg-surface/80 backdrop-blur-xl border border-white/10 shadow-2xl flex items-center gap-4 px-6 py-2 z-40">
-<button class="text-on-surface-variant p-2 hover:bg-surface-container-highest rounded-full transition-all active:scale-95">
-<span class="material-symbols-outlined" data-icon="undo">undo</span>
-</button>
-<button class="text-on-surface-variant p-2 hover:bg-surface-container-highest rounded-full transition-all active:scale-95">
-<span class="material-symbols-outlined" data-icon="redo">redo</span>
-</button>
-<div class="w-[1px] h-6 bg-white/10 mx-1"></div>
-<button class="text-on-surface-variant p-2 hover:bg-surface-container-highest rounded-full transition-all active:scale-95">
-<span class="material-symbols-outlined" data-icon="layers">layers</span>
-</button>
-<div class="flex items-center bg-surface-container-high rounded-full px-2">
-<button class="text-on-surface-variant p-1 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="zoom_out">zoom_out</span>
-</button>
-<span class="text-[11px] font-code-sm px-2 text-primary">82%</span>
-<button class="text-on-surface-variant p-1 hover:text-primary transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="zoom_in">zoom_in</span>
-</button>
-</div>
-</footer>
-<!-- Micro-interaction Scripts -->
+
 <script>
-        // Simple Tab Switcher Simulation
-        const tabHtml = document.getElementById('tab-html');
-        const tabTailwind = document.getElementById('tab-tailwind');
+const wrap = document.getElementById('wrap');
+const canvas = document.getElementById('canvas');
+const zoomVal = document.getElementById('zoom-val');
 
-        tabHtml.addEventListener('click', () => {
-            tabHtml.classList.add('border-primary', 'text-primary');
-            tabHtml.classList.remove('border-transparent', 'text-on-surface-variant');
-            tabTailwind.classList.add('border-transparent', 'text-on-surface-variant');
-            tabTailwind.classList.remove('border-primary', 'text-primary');
-        });
+let scale = 0.75, ox = 80, oy = 40;
+let panning = false, lx = 0, ly = 0;
 
-        tabTailwind.addEventListener('click', () => {
-            tabTailwind.classList.add('border-primary', 'text-primary');
-            tabTailwind.classList.remove('border-transparent', 'text-on-surface-variant');
-            tabHtml.classList.add('border-transparent', 'text-on-surface-variant');
-            tabHtml.classList.remove('border-primary', 'text-primary');
-        });
-
-        // Hover Effect on Canvas Items (Basic)
-        document.querySelectorAll('.glass-panel, .bg-surface-container').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-2px)';
-                card.style.transition = 'transform 0.3s ease';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0px)';
-            });
-        });
-    </script>
-<div class="fixed bottom-8 right-8 z-[100] flex items-center gap-3 bg-surface-container-highest/90 backdrop-blur-md border border-white/10 px-4 py-3 rounded-xl shadow-2xl animate-bounce-short">
-<span class="material-symbols-outlined text-primary text-sm" data-icon="cloud_done">cloud_done</span>
-<span class="text-sm font-medium">All changes saved to server</span>
-</div>
-<style>
-@keyframes bounce-short {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+function applyT(){
+  canvas.style.transform = `translate(${ox}px,${oy}px) scale(${scale})`;
+  zoomVal.textContent = Math.round(scale*100)+'%';
 }
-.animate-bounce-short {
-    animation: bounce-short 2s ease-in-out infinite;
+applyT();
+
+// Middle click pan
+wrap.addEventListener('mousedown', e => {
+  if(e.button===1){ e.preventDefault(); panning=true; lx=e.clientX; ly=e.clientY; wrap.classList.add('panning'); }
+});
+document.addEventListener('mousemove', e => {
+  if(!panning) return;
+  ox += e.clientX-lx; oy += e.clientY-ly;
+  lx=e.clientX; ly=e.clientY; applyT();
+});
+document.addEventListener('mouseup', e => {
+  if(e.button===1){ panning=false; wrap.classList.remove('panning'); }
+});
+
+// Scroll zoom
+wrap.addEventListener('wheel', e => {
+  e.preventDefault();
+  const d = e.deltaY>0?0.9:1.1;
+  const r = wrap.getBoundingClientRect();
+  const mx=e.clientX-r.left, my=e.clientY-r.top;
+  ox=mx-(mx-ox)*d; oy=my-(my-oy)*d;
+  scale=Math.min(3,Math.max(0.08,scale*d));
+  applyT();
+},{passive:false});
+
+function zoom(f){
+  const cx=wrap.offsetWidth/2, cy=wrap.offsetHeight/2;
+  ox=cx-(cx-ox)*f; oy=cy-(cy-oy)*f;
+  scale=Math.min(3,Math.max(0.08,scale*f)); applyT();
 }
-</style></body></html>
+function resetView(){ scale=0.75; ox=80; oy=40; applyT(); }
+function fitAll(){ scale=0.45; ox=60; oy=30; applyT(); }
+
+// Card selection → right panel
+const selInfo = document.getElementById('selected-info');
+const selName = document.getElementById('sel-name');
+const selTask = document.getElementById('sel-task');
+const selTasks = document.getElementById('sel-tasks');
+const selEx = document.getElementById('sel-ex');
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    selName.textContent = card.dataset.name || '';
+    selTask.textContent = card.dataset.task || '';
+    selEx.textContent = card.dataset.ex ? '→ ' + card.dataset.ex : '';
+    selTasks.innerHTML = '';
+    if(card.dataset.tasks){
+      card.dataset.tasks.split('|').forEach(t=>{
+        const li=document.createElement('li');
+        li.textContent=t; selTasks.appendChild(li);
+      });
+    }
+    selInfo.classList.add('visible');
+  });
+});
+
+wrap.addEventListener('click', ()=>{
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));
+  selInfo.classList.remove('visible');
+});
+
+wrap.addEventListener('contextmenu',e=>e.preventDefault());
+</script>
+</body>
+</html>
