@@ -633,21 +633,30 @@ document.addEventListener('mouseup', e => {
   if(e.button===1){ panning=false; wrap.classList.remove('panning'); }
 });
 
-// Scroll zoom
+// Scroll zoom — anchored to cursor position
 wrap.addEventListener('wheel', e => {
   e.preventDefault();
-  const d = e.deltaY>0?0.9:1.1;
+  const d = e.deltaY > 0 ? 0.92 : 1.08;
   const r = wrap.getBoundingClientRect();
-  const mx=e.clientX-r.left, my=e.clientY-r.top;
-  ox=mx-(mx-ox)*d; oy=my-(my-oy)*d;
-  scale=Math.min(3,Math.max(0.08,scale*d));
+  const mx = e.clientX - r.left;
+  const my = e.clientY - r.top;
+  const newScale = Math.min(3, Math.max(0.1, scale * d));
+  const factor = newScale / scale;
+  ox = mx - factor * (mx - ox);
+  oy = my - factor * (my - oy);
+  scale = newScale;
   applyT();
-},{passive:false});
+}, {passive:false});
 
 function zoom(f){
-  const cx=wrap.offsetWidth/2, cy=wrap.offsetHeight/2;
-  ox=cx-(cx-ox)*f; oy=cy-(cy-oy)*f;
-  scale=Math.min(3,Math.max(0.08,scale*f)); applyT();
+  const cx = wrap.offsetWidth/2;
+  const cy = wrap.offsetHeight/2;
+  const newScale = Math.min(3, Math.max(0.1, scale * f));
+  const factor = newScale / scale;
+  ox = cx - factor * (cx - ox);
+  oy = cy - factor * (cy - oy);
+  scale = newScale;
+  applyT();
 }
 function resetView(){ scale=0.75; ox=80; oy=40; applyT(); }
 function fitAll(){ scale=0.45; ox=60; oy=30; applyT(); }
