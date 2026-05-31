@@ -9,21 +9,18 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:#080C14;font-family:'DM Sans',sans-serif;color:#E0E3E5;user-select:none}
 
-/* TOPBAR */
-#topbar{position:fixed;top:0;left:0;right:260px;height:44px;background:rgba(8,12,20,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(126,200,227,0.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100}
+#topbar{position:fixed;top:0;left:0;right:260px;height:44px;background:rgba(8,12,20,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(126,200,227,0.15);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100}
 .logo{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#7EC8E3;letter-spacing:.1em}
 .top-status{display:flex;align-items:center;gap:8px;font-size:10px;color:#8899AA;font-family:'JetBrains Mono',monospace}
 .dot{width:5px;height:5px;border-radius:50%;background:#4ade80;box-shadow:0 0 5px rgba(74,222,128,.7);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* CANVAS */
 #wrap{position:fixed;inset:0;top:44px;right:260px;overflow:hidden;cursor:default;background:#080C14}
-#wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(126,200,227,0.06) 1px, transparent 1px);background-size:28px 28px;z-index:0}
 #wrap.panning{cursor:grabbing}
-#canvas{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
-#canvas svg{display:block}
 
-/* RIGHT PANEL */
+/* SVG fills wrap, viewBox handles zoom/pan */
+#main-svg{position:absolute;top:0;left:0;width:100%;height:100%}
+
 #panel{position:fixed;top:0;right:0;bottom:0;width:260px;background:rgba(8,12,20,0.95);backdrop-filter:blur(16px);border-left:1px solid rgba(126,200,227,0.12);display:flex;flex-direction:column;z-index:100}
 .panel-header{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
 .panel-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#BFC8CD;letter-spacing:.08em;text-transform:uppercase}
@@ -53,16 +50,38 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080C14;font-family:
 </div>
 
 <div id="wrap">
-  <div id="canvas">
-    <svg width="8000" height="5440" viewBox="0 0 8000 5440" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+  <svg id="main-svg" viewBox="0 0 8000 5440"
+       xmlns="http://www.w3.org/2000/svg"
+       xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+       xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+    <!-- dot grid -->
+    <defs>
+      <pattern id="dots" width="56" height="56" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1.8" fill="rgba(126,200,227,0.07)"/>
+      </pattern>
+    </defs>
+    <rect width="8000" height="5440" fill="#080C14"/>
+    <rect width="8000" height="5440" fill="url(#dots)"/>
 
   
-  
-  <path
-     id="rect1"
-     d="M 0.84960938,2.6777344 V 5454.1932 H 8017.7841 V 2.6777344 Z"
-     style="display:inline;stroke-width:1.60339"
-     sodipodi:insensitive="true" />
+  <sodipodi:namedview
+     id="namedview393"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="0.17786818"
+     inkscape:cx="3699.3689"
+     inkscape:cy="2066.1369"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg393" />
   <!-- CARD TEMPLATE: w=320 h=220, image slot h=80, title, subtitle, 5 tasks, example -->
   <!-- ═══════════════════════════════════════ -->
   <!-- ANIMATION & RIGGING                   -->
@@ -4292,8 +4311,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080C14;font-family:
      sodipodi:nodetypes="ccccccccccccccccccccccc"
      sodipodi:insensitive="true" />
 
-    </svg>
-  </div>
+  </svg>
 </div>
 
 <div id="panel">
@@ -4327,9 +4345,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080C14;font-family:
     </div>
   </div>
   <div id="zoom-ctrl">
-    <button class="zoom-btn" onclick="zoom(0.8)">−</button>
-    <span id="zoom-val">20%</span>
-    <button class="zoom-btn" onclick="zoom(1.2)">+</button>
+    <button class="zoom-btn" onclick="zoomBtn(0.8)">−</button>
+    <span id="zoom-val">100%</span>
+    <button class="zoom-btn" onclick="zoomBtn(1.2)">+</button>
     <button class="zoom-btn" onclick="fitAll()" style="margin-left:4px" title="Fit all">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
     </button>
@@ -4341,144 +4359,119 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080C14;font-family:
 
 <script>
 const wrap = document.getElementById('wrap');
-const canvas = document.getElementById('canvas');
+const svg  = document.getElementById('main-svg');
 const zoomVal = document.getElementById('zoom-val');
 
-// Current displayed state
-let scale = 0.15, ox = 40, oy = 20;
-// Target state (what we're easing towards)
-let tScale = 0.15, tOx = 40, tOy = 20;
-// Velocity for inertia
-let vx = 0, vy = 0;
+// viewBox state
+const VW = 8000, VH = 5440;
+let vx = 0, vy = 0, vw = VW, vh = VH;
+// targets for easing
+let tvx = vx, tvy = vy, tvw = vw, tvh = vh;
+// pan inertia
+let ivx = 0, ivy = 0;
 let panning = false, lx = 0, ly = 0;
 let rafId = null;
 
-const EASE = 0.12;       // pan easing (lower = smoother/slower)
-const ZOOM_EASE = 0.10;  // zoom easing
-const FRICTION = 0.88;   // inertia friction (higher = more glide)
-const MIN_SCALE = 0.05;
-const MAX_SCALE = 4;
+const EASE = 0.1;
+const FRICTION = 0.88;
 
-function applyT() {
-  canvas.style.transform = `translate(${ox}px,${oy}px) scale(${scale})`;
-  zoomVal.textContent = Math.round(scale * 100) + '%';
+function applyVB() {
+  svg.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`);
+  const pct = Math.round(VW / vw * 100);
+  zoomVal.textContent = pct + '%';
 }
+applyVB();
 
 function tick() {
   let dirty = false;
 
-  // Ease position
-  const dx = tOx - ox;
-  const dy = tOy - oy;
-  if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-    ox += dx * EASE;
-    oy += dy * EASE;
+  const dx = tvx - vx, dy = tvy - vy;
+  const dw = tvw - vw, dh = tvh - vh;
+
+  if (Math.abs(dx) > 0.5) { vx += dx * EASE; dirty = true; } else vx = tvx;
+  if (Math.abs(dy) > 0.5) { vy += dy * EASE; dirty = true; } else vy = tvy;
+  if (Math.abs(dw) > 0.5) { vw += dw * EASE; dirty = true; } else vw = tvw;
+  if (Math.abs(dh) > 0.5) { vh += dh * EASE; dirty = true; } else vh = tvh;
+
+  // inertia
+  if (!panning && (Math.abs(ivx) > 0.5 || Math.abs(ivy) > 0.5)) {
+    tvx += ivx; tvy += ivy;
+    ivx *= FRICTION; ivy *= FRICTION;
     dirty = true;
-  } else {
-    ox = tOx; oy = tOy;
   }
 
-  // Ease scale
-  const ds = tScale - scale;
-  if (Math.abs(ds) > 0.0001) {
-    scale += ds * ZOOM_EASE;
-    dirty = true;
-  } else {
-    scale = tScale;
-  }
-
-  // Inertia when not panning
-  if (!panning) {
-    if (Math.abs(vx) > 0.1 || Math.abs(vy) > 0.1) {
-      tOx += vx;
-      tOy += vy;
-      vx *= FRICTION;
-      vy *= FRICTION;
-      dirty = true;
-    } else {
-      vx = 0; vy = 0;
-    }
-  }
-
-  if (dirty) {
-    applyT();
-    rafId = requestAnimationFrame(tick);
-  } else {
-    rafId = null;
-  }
+  if (dirty) { applyVB(); rafId = requestAnimationFrame(tick); }
+  else { rafId = null; }
 }
 
-function startTick() {
-  if (!rafId) rafId = requestAnimationFrame(tick);
-}
+function startTick() { if (!rafId) rafId = requestAnimationFrame(tick); }
 
-applyT();
+// Convert screen coords to SVG coords
+function screenToSVG(sx, sy) {
+  const r = wrap.getBoundingClientRect();
+  return {
+    x: vx + (sx - r.left) / r.width  * vw,
+    y: vy + (sy - r.top)  / r.height * vh
+  };
+}
 
 // Middle click pan
 wrap.addEventListener('mousedown', e => {
   if (e.button === 1) {
     e.preventDefault();
-    panning = true;
-    lx = e.clientX; ly = e.clientY;
-    vx = 0; vy = 0;
+    panning = true; lx = e.clientX; ly = e.clientY;
+    ivx = 0; ivy = 0;
     wrap.classList.add('panning');
   }
 });
 
 document.addEventListener('mousemove', e => {
   if (!panning) return;
-  const dx = e.clientX - lx;
-  const dy = e.clientY - ly;
-  vx = dx * 0.6;
-  vy = dy * 0.6;
-  tOx += dx; tOy += dy;
+  const r = wrap.getBoundingClientRect();
+  const ddx = -(e.clientX - lx) / r.width  * tvw;
+  const ddy = -(e.clientY - ly) / r.height * tvh;
+  ivx = ddx * 0.8; ivy = ddy * 0.8;
+  tvx += ddx; tvy += ddy;
   lx = e.clientX; ly = e.clientY;
   startTick();
 });
 
 document.addEventListener('mouseup', e => {
-  if (e.button === 1) {
-    panning = false;
-    wrap.classList.remove('panning');
-    startTick(); // let inertia continue
-  }
+  if (e.button === 1) { panning = false; wrap.classList.remove('panning'); startTick(); }
 });
 
-// Scroll zoom with easing
+// Scroll zoom
 wrap.addEventListener('wheel', e => {
   e.preventDefault();
-  const d = e.deltaY > 0 ? 0.92 : 1.08;
-  const r = wrap.getBoundingClientRect();
-  const mx = e.clientX - r.left;
-  const my = e.clientY - r.top;
-  const ns = Math.min(MAX_SCALE, Math.max(MIN_SCALE, tScale * d));
-  const f = ns / tScale;
-  tOx = mx - (mx - tOx) * f;
-  tOy = my - (my - tOy) * f;
-  tScale = ns;
+  const factor = e.deltaY > 0 ? 1.1 : 0.9;
+  const pt = screenToSVG(e.clientX, e.clientY);
+  const nw = Math.min(VW * 20, Math.max(VW * 0.005, tvw * factor));
+  const nh = nw * (VH / VW);
+  const scaleF = nw / tvw;
+  tvx = pt.x - (pt.x - tvx) * scaleF;
+  tvy = pt.y - (pt.y - tvy) * scaleF;
+  tvw = nw; tvh = nh;
   startTick();
 }, {passive: false});
 
-function zoom(f) {
-  const cx = wrap.offsetWidth / 2;
-  const cy = wrap.offsetHeight / 2;
-  const ns = Math.min(MAX_SCALE, Math.max(MIN_SCALE, tScale * f));
-  const fac = ns / tScale;
-  tOx = cx - (cx - tOx) * fac;
-  tOy = cy - (cy - tOy) * fac;
-  tScale = ns;
-  startTick();
-}
-
-function resetView() {
-  tScale = 0.15; tOx = 40; tOy = 20;
-  vx = 0; vy = 0;
+function zoomBtn(f) {
+  const cx = tvx + tvw / 2, cy = tvy + tvh / 2;
+  const nw = Math.min(VW * 20, Math.max(VW * 0.005, tvw * f));
+  const nh = nw * (VH / VW);
+  tvx = cx - nw / 2; tvy = cy - nh / 2;
+  tvw = nw; tvh = nh;
   startTick();
 }
 
 function fitAll() {
-  tScale = 0.14; tOx = 20; tOy = 15;
-  vx = 0; vy = 0;
+  tvx = 0; tvy = 0; tvw = VW; tvh = VH;
+  ivx = 0; ivy = 0;
+  startTick();
+}
+
+function resetView() {
+  tvx = 0; tvy = 0; tvw = VW * 0.7; tvh = VH * 0.7;
+  ivx = 0; ivy = 0;
   startTick();
 }
 
