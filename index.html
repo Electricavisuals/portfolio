@@ -4417,7 +4417,7 @@ function screenToSVG(sx, sy) {
 
 // Middle click pan
 wrap.addEventListener('mousedown', e => {
-  if (e.button === 1) {
+  if (e.button === 0) {
     e.preventDefault();
     panning = true; lx = e.clientX; ly = e.clientY;
     ivx = 0; ivy = 0;
@@ -4437,7 +4437,7 @@ document.addEventListener('mousemove', e => {
 });
 
 document.addEventListener('mouseup', e => {
-  if (e.button === 1) { panning = false; wrap.classList.remove('panning'); startTick(); }
+  if (e.button === 0) { panning = false; wrap.classList.remove('panning'); startTick(); }
 });
 
 // Scroll zoom
