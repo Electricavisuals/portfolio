@@ -1,0 +1,12 @@
+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
+
+
+
+git push
+https://Electricavisuals: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@github.com/Electricavisuals/portfolio.git master
+
+
+
+git remote add origin https://Electricavisuals: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@github.com/Electricavisuals/portfolio.git
+
+@github.com/Electricavisuals/portfolio.git master
